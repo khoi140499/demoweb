@@ -1,0 +1,127 @@
+﻿@model IEnumerable<DemoClient.Models.User>
+@{
+    ViewBag.Title = "ManagerUser";
+    Layout = "~/Views/Shared/_Manager.cshtml";
+}
+<link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/fonts/fontawesome-free-5.12.1-web/css/all.css">
+<link rel="stylesheet" type="text/css" href="/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="/Content/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="/Content/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="/Content/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="/Content/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="/Content/daterangepicker.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="/Content/util.css">
+<link rel="stylesheet" type="text/css" href="/Content/main.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<table style="width: 100%;border-collapse:collapse">
+    <tr>
+        <th style="width:5%">ID</th>
+        <th style="width:10%">Nam</th>
+        <th style="width:5%">Password</th>
+        <th style="width:15%">Email</th>
+        <th style="width:10%">Address</th>
+        <th style="width:5%">Phone Number</th>
+        <th style="width:15%">Emoij</th>
+        <th style="width:5%"></th>
+        <th style="width:5%"></th>
+    </tr>
+    @{
+        foreach (var item in Model)
+        {
+            <tr>
+                <td style="width:5%">@item.id</td>
+                <td style="width:10%">@item.name</td>
+                <td style="width:5%">@item.password</td>
+                <td style="width:15%">@item.email</td>
+                <td style="width:10%">@item.address</td>
+                <td style="width:5%">@item.phone</td>
+                <td style="width:15%">
+                    <img src="~/img/@item.emoij" style="width: 10%" />
+                </td>
+                <td style="width:5%">
+                    <button class="btn btn-danger edit">
+                        <span hidden>@item.ToString()</span>
+                        <i class="fa-fast-backward fa-edit"></i>
+                    </button>
+                </td>
+                <td style="width:5%">
+                    <button class="btn btn-danger delete">
+                        <a href="@Url.Action("DeleteUser", "Home", new { id = item.id})">Delete</a>
+                    </button>
+                </td>
+            </tr>
+        }
+    }
+</table>
+<div style="width: 80%;">
+    <div class="wrap-login100">
+        @using (Html.BeginForm("Add", "Home", FormMethod.Post, new
+        {
+            @class = "login100-form validate-form resgister",
+            enctype = "multipart/form-data"
+        }))
+        {
+            <span class="login100-form-title p-b-43" style="margin-top: -130px;">
+                Add User
+            </span>
+            <div class="wrap-input100" style="margin-bottom: 30px;">
+                <input class="input100" type="text" name="id" placeholder="ID" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[A-Z]).{8,}"
+                       title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                <span style="margin-left: 5px; margin-top: 5px; color: red;" class="valpass"></span>
+            </div>
+            <div class="wrap-input100" style="margin-bottom: 30px;">
+                <input class="input100" type="text" name="name" placeholder="Username" required>
+                <span style="margin-left: 5px; margin-top: 5px; color: red;" class="valname"></span>
+            </div>
+
+            <div class="wrap-input100" style="margin-bottom: 30px;">
+                <input class="input100" type="password" name="pass" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[A-Z]).{8,}"
+                       title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                <span style="margin-left: 5px; margin-top: 5px; color: red;" class="valpass"></span>
+            </div>
+            <div class="wrap-input100" style="margin-bottom: 30px;">
+                <input class="input100 em" type="email" name="email" placeholder="Email"
+                       tittle="Email must be in the format xx@xx.xx" required>
+                <span style="margin-left: 5px; margin-top: 5px; color: red;" class="valemail"></span>
+            </div>
+
+            <div class="wrap-input100" style="margin-bottom: 30px;">
+                <input class="input100" type="text" name="phone" placeholder="Phone Number" pattern="([0-9]{3})+-+([0-9]{4})+-+([0-9]{4})"
+                       tittle="Phone number format fails" required>
+                <span style="margin-left: 5px; margin-top: 5px; color: red;" class="valphone"></span>
+            </div>
+            <div class="wrap-input100" style="margin-bottom: 30px;">
+                <input class="input100 ad" type="text" name="address" placeholder="Address" required>
+                <span style="margin-left: 5px; margin-top: 5px; color: red;" class="valaddress"></span>
+            </div>
+
+            <div class="wrap-input100" style="margin-bottom: 30px;">
+                @Html.TextBox("file", "", new { type = "file", accept = "image/*" }) <br />
+                <span style="margin-left: 5px; margin-top: 5px; color: red;" class="valemoij"></span>
+            </div>
+
+            <div class="container-login100-form-btn">
+                <input type="submit" value="Register" class="login100-form-btn">
+                </input>
+            </div>
+
+            <div class="text-center p-t-46 p-b-20">
+                <span class="txt2">
+                    or <a href="@Url.Action("Index", "Home")">Log in</a>
+                </span>
+            </div>
+        }
+    </div>
+</div>
+<script>
+
+</script>
